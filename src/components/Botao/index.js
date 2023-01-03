@@ -1,8 +1,9 @@
 import './Botao.css'
 
 const Botao = (props) => {
+
     return (
-        <button className="botao">
+        <button className="botao" onClick={props.toggleShow}>
             {props.children}
         </button>
     )

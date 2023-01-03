@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import {v4 as uuaiv4} from 'uuid';
 import Banner from './components/Banner/Banner';
+import Botao from './components/Botao';
 import Formulario from './components/Formulário';
 import Rodape from './components/Rodape';
 import Time from './components/Time';
+import { BiHide, BiShow } from 'react-icons/bi';
+
 
 function App() {
 
@@ -273,14 +276,30 @@ function App() {
     }))
   }
 
+  const [show, setShow] = useState(true)
+
+  const propsView = {
+    size: 25,
+}
+
+  var placeholder = show ? <BiHide {...propsView}/> : <BiShow {...propsView}/>
+
+  function toggleShow (){
+    setShow(!show)
+  }
+
   return (
     <div className="App">
       <Banner />
-      <Formulario 
-        cadastrarTime={cadastrarTime}
-        times={times.map(time => time.nome)} 
-        aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
-      />
+      {show ? 
+        <Formulario 
+          cadastrarTime={cadastrarTime}
+          times={times.map(time => time.nome)} 
+          aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
+        />
+        : ''
+      }
+      <Botao toggleShow={toggleShow} show={show}>{placeholder}</Botao>
       <section className="times">
         <h1>Minha Organização</h1>
         {times.map((time, indice) => 
